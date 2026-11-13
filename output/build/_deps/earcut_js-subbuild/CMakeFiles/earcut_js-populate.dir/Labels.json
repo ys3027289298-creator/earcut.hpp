@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/CMakeFiles/earcut_js-populate"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/CMakeFiles/earcut_js-populate.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/CMakeFiles/earcut_js-populate-complete.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-build.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-configure.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-download.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-install.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-patch.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-test.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"earcut_js-populate"
+		],
+		"name" : "earcut_js-populate"
+	}
+}

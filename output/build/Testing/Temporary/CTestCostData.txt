@@ -1,0 +1,3 @@
+earcut_tests 2 0.32608
+earcut_fuzz 2 0.188535
+---

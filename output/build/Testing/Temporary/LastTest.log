@@ -1,0 +1,229 @@
+Start testing: Nov 13 18:40 CST
+----------------------------------------------------------
+1/2 Testing: earcut_tests
+1/2 Test: earcut_tests
+Command: "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/tests"
+Directory: /home/ys/feedback/uidreczz28Z7ClbdazQ/output/build
+"earcut_tests" start time: Nov 13 18:40 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/_deps/googletest-src/googletest/src/gtest_main.cc
+[==========] Running 79 tests from 6 test suites.
+[----------] Global test environment set-up.
+[----------] 2 tests from EarcutBasicTest
+[ RUN      ] EarcutBasicTest.EmptyInput
+[       OK ] EarcutBasicTest.EmptyInput (0 ms)
+[ RUN      ] EarcutBasicTest.CollinearPolygon
+[       OK ] EarcutBasicTest.CollinearPolygon (0 ms)
+[----------] 2 tests from EarcutBasicTest (0 ms total)
+
+[----------] 4 tests from EarcutTypedInput
+[ RUN      ] EarcutTypedInput.Short
+[       OK ] EarcutTypedInput.Short (0 ms)
+[ RUN      ] EarcutTypedInput.Int
+[       OK ] EarcutTypedInput.Int (0 ms)
+[ RUN      ] EarcutTypedInput.Double
+[       OK ] EarcutTypedInput.Double (0 ms)
+[ RUN      ] EarcutTypedInput.SignedSizeContainer
+[       OK ] EarcutTypedInput.SignedSizeContainer (0 ms)
+[----------] 4 tests from EarcutTypedInput (0 ms total)
+
+[----------] 5 tests from EarcutRefine
+[ RUN      ] EarcutRefine.ImprovesBadQuadDiagonal
+[       OK ] EarcutRefine.ImprovesBadQuadDiagonal (0 ms)
+[ RUN      ] EarcutRefine.LeavesGoodQuadDiagonalAlone
+[       OK ] EarcutRefine.LeavesGoodQuadDiagonalAlone (0 ms)
+[ RUN      ] EarcutRefine.PreservesConcavePolygon
+[       OK ] EarcutRefine.PreservesConcavePolygon (0 ms)
+[ RUN      ] EarcutRefine.TerminatesOnNearCocircularPoints
+[       OK ] EarcutRefine.TerminatesOnNearCocircularPoints (0 ms)
+[ RUN      ] EarcutRefine.LegalizesAllConvexInteriorEdgesInFixture
+[       OK ] EarcutRefine.LegalizesAllConvexInteriorEdgesInFixture (0 ms)
+[----------] 5 tests from EarcutRefine (0 ms total)
+
+[----------] 1 test from EarcutTiles
+[ RUN      ] EarcutTiles.ZeroDeviation
+[       OK ] EarcutTiles.ZeroDeviation (535 ms)
+[----------] 1 test from EarcutTiles (535 ms total)
+
+[----------] 8 tests from EarcutValidate
+[ RUN      ] EarcutValidate.CleanPolygonPasses
+[       OK ] EarcutValidate.CleanPolygonPasses (0 ms)
+[ RUN      ] EarcutValidate.DetectsDuplicatePoints
+[       OK ] EarcutValidate.DetectsDuplicatePoints (0 ms)
+[ RUN      ] EarcutValidate.DetectsClosingDuplicate
+[       OK ] EarcutValidate.DetectsClosingDuplicate (0 ms)
+[ RUN      ] EarcutValidate.DetectsDegenerateEdge
+[       OK ] EarcutValidate.DetectsDegenerateEdge (0 ms)
+[ RUN      ] EarcutValidate.DetectsSelfIntersection
+[       OK ] EarcutValidate.DetectsSelfIntersection (0 ms)
+[ RUN      ] EarcutValidate.DetectsCoordinateOverflow
+[       OK ] EarcutValidate.DetectsCoordinateOverflow (0 ms)
+[ RUN      ] EarcutValidate.BatchSkipsDirtyPolygonsAndContinues
+[       OK ] EarcutValidate.BatchSkipsDirtyPolygonsAndContinues (0 ms)
+[ RUN      ] EarcutValidate.BatchOutputIdenticalToDirectEarcut
+[       OK ] EarcutValidate.BatchOutputIdenticalToDirectEarcut (56 ms)
+[----------] 8 tests from EarcutValidate (57 ms total)
+
+[----------] 59 tests from FixtureTests/EarcutAreaTest
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/bad_diagonals
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/bad_diagonals (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/bad_hole
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/bad_hole (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/boxy
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/boxy (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/building
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/building (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/collinear_diagonal
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/collinear_diagonal (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/degenerate
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/degenerate (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/dude
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/dude (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/earcut
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/earcut (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/eberly_3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/eberly_3 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/eberly_6
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/eberly_6 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/empty_square
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/empty_square (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/filtered_bridge_jhl
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/filtered_bridge_jhl (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hilbert
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hilbert (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hole_touching_outer
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hole_touching_outer (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hourglass
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/hourglass (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/infinite_loop_jhl
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/infinite_loop_jhl (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue107
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue107 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue111
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue111 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue119
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue119 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue131
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue131 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue142
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue142 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue147
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue147 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue149
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue149 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue16
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue16 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue17
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue17 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue186
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue186 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue29
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue29 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue34
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue34 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue35
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue35 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue45
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue45 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue52
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue52 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue83
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/issue83 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/outside_ring
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/outside_ring (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/rain
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/rain (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_1
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_1 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_2
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_2 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_3 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_4
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_tangent_4 (1 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_touching
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/self_touching (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/shared_points
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/shared_points (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/simplified_us_border
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/simplified_us_border (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/steiner
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/steiner (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes2
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes2 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes3 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes4
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes4 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes5
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes5 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes6
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching_holes6 (1 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching2
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching2 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching3 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching4
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/touching4 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge (1 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge2
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge2 (2 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water_huge3 (17 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water2
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water2 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water3
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water3 (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water3b
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water3b (0 ms)
+[ RUN      ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water4
+[       OK ] FixtureTests/EarcutAreaTest.EarcutTriangulation/water4 (0 ms)
+[----------] 59 tests from FixtureTests/EarcutAreaTest (26 ms total)
+
+[----------] Global test environment tear-down
+[==========] 79 tests from 6 test suites ran. (619 ms total)
+[  PASSED  ] 79 tests.
+<end of output>
+Test time =   0.65 sec
+----------------------------------------------------------
+Test Passed.
+"earcut_tests" end time: Nov 13 18:40 CST
+"earcut_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: earcut_fuzz
+2/2 Test: earcut_fuzz
+Command: "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build/fuzz" "100000"
+Directory: /home/ys/feedback/uidreczz28Z7ClbdazQ/output/build
+"earcut_fuzz" start time: Nov 13 18:40 CST
+Output:
+----------------------------------------------------------
+... 10000/100000 iterations
+... 20000/100000 iterations
+... 30000/100000 iterations
+... 40000/100000 iterations
+... 50000/100000 iterations
+... 60000/100000 iterations
+... 70000/100000 iterations
+... 80000/100000 iterations
+... 90000/100000 iterations
+... 100000/100000 iterations
+FUZZ OK: 100000 iterations (seed 1), no crash
+  clean polygons triangulated: 46818
+  diagnostics: CoordinateOverflow=19833 DuplicatePoint=9976 DegenerateEdge=10029 SelfIntersection=34220
+  dirty-but-finite polygons also run through earcut directly: 33349
+<end of output>
+Test time =   0.38 sec
+----------------------------------------------------------
+Test Passed.
+"earcut_fuzz" end time: Nov 13 18:40 CST
+"earcut_fuzz" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 13 18:40 CST

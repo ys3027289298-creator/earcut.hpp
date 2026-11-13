@@ -1,0 +1,9 @@
+Test project /home/ys/feedback/uidreczz28Z7ClbdazQ/output/build
+    Start 1: earcut_tests
+1/2 Test #1: earcut_tests .....................   Passed    0.65 sec
+    Start 2: earcut_fuzz
+2/2 Test #2: earcut_fuzz ......................   Passed    0.38 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   1.03 sec

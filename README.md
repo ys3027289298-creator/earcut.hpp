@@ -68,6 +68,26 @@ mapbox::refine(indices, coords);
 
 It assumes a valid manifold triangulation, such as the output of `earcut` (though any manifold triangle-index array works), and reads `coords` through the same `nth<0>`/`nth<1>` accessors. It doesn't repair invalid polygon input or make the mesh conforming. Note also that `refine` uses **non-robust** predicates: float input is fine, and the worst case is a not-quite-Delaunay edge, never an invalid mesh — but unlike `earcut` it does not promise bit-identical output across compilers.
 
+### Input validation & fault-tolerant batching
+
+`mapbox/earcut_validate.hpp` adds an opt-in pre-flight check for batches that may contain dirty polygons. `mapbox::validatePolygon` classifies structural problems into diagnosable categories — `CoordinateOverflow` (non-finite or beyond 2^53), `DuplicatePoint`, `DegenerateEdge`, `SelfIntersection` — each reported with ring/vertex indices and a log-ready message. `mapbox::earcutBatch` validates every polygon in a batch, skips (and explains) the dirty ones, and triangulates the rest, so one bad ring no longer fails a whole batch. Polygons that pass validation go through the unmodified `mapbox::earcut`, so their output is vertex-for-vertex identical to calling `earcut` directly.
+
+```cpp
+#include <mapbox/earcut_validate.hpp>
+
+std::vector<Polygon> batch = loadBatch();
+for (const auto& item : mapbox::earcutBatch(batch)) {
+    if (item.ok()) {
+        use(item.indices);
+    } else {
+        for (const auto& d : item.report.diagnostics)
+            log("[%s] %s", mapbox::issueName(d.issue), d.message.c_str());
+    }
+}
+```
+
+The `fuzz` target (`-DEARCUT_BUILD_FUZZ=ON`, on by default) stress-tests this layer: `./build/fuzz 100000` runs 100k randomized clean/dirty polygons with no crashes, and `./build/fuzz --demo` prints diagnostics for a small hand-made dirty batch.
+
 ## Performance
 
 Earcut is heavily optimized for its primary workload — triangulating polygons from

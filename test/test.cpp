@@ -5,6 +5,7 @@
 #include <locale>
 #include <map>
 #include <mapbox/earcut.hpp>
+#include <mapbox/earcut_validate.hpp>
 #include <sstream>
 
 #include "fixtures/geometries.hpp"
@@ -368,3 +369,94 @@ INSTANTIATE_TEST_SUITE_P(FixtureTests,
                              std::replace(name.begin(), name.end(), '.', '_');
                              return name;
                          });
+
+// ---- input validation & fault-tolerant batching ----------------------------------------------
+
+using ValidatePoint = std::pair<double, double>;
+using ValidatePolygon = mapbox::fixtures::Polygon<ValidatePoint>;
+
+TEST(EarcutValidate, CleanPolygonPasses) {
+    const ValidatePolygon squareWithHole{
+        {{0, 0}, {100, 0}, {100, 100}, {0, 100}},
+        {{25, 25}, {75, 25}, {75, 75}, {25, 75}},
+    };
+    const auto report = mapbox::validatePolygon(squareWithHole);
+    EXPECT_TRUE(report.ok()) << (report.ok() ? "" : report.diagnostics.front().message);
+}
+
+TEST(EarcutValidate, DetectsDuplicatePoints) {
+    const ValidatePolygon polygon{{{0, 0}, {10, 0}, {10, 0}, {10, 10}, {0, 10}}};
+    const auto report = mapbox::validatePolygon(polygon);
+    ASSERT_TRUE(report.has(mapbox::PolygonIssue::DuplicatePoint));
+    const auto& d = report.diagnostics.front();
+    EXPECT_EQ(d.ring, 0u);
+    EXPECT_EQ(d.vertex, 2u) << "the repeated vertex is the one to drop";
+    EXPECT_EQ(d.other, 1u);
+}
+
+TEST(EarcutValidate, DetectsClosingDuplicate) {
+    // GeoJSON-style ring repeating the first vertex at the end.
+    const ValidatePolygon polygon{{{0, 0}, {10, 0}, {10, 10}, {0, 10}, {0, 0}}};
+    const auto report = mapbox::validatePolygon(polygon);
+    EXPECT_TRUE(report.has(mapbox::PolygonIssue::DuplicatePoint));
+}
+
+TEST(EarcutValidate, DetectsDegenerateEdge) {
+    const ValidatePolygon polygon{{{0, 0}, {100, 0}, {100, 1e-11}, {100, 100}, {0, 100}}};
+    const auto report = mapbox::validatePolygon(polygon);
+    EXPECT_TRUE(report.has(mapbox::PolygonIssue::DegenerateEdge));
+    EXPECT_FALSE(report.has(mapbox::PolygonIssue::DuplicatePoint))
+        << "a near-zero but non-zero edge is degenerate, not a duplicate";
+}
+
+TEST(EarcutValidate, DetectsSelfIntersection) {
+    // bowtie: edge 0->1 crosses edge 2->3
+    const ValidatePolygon polygon{{{0, 0}, {40, 40}, {40, 0}, {0, 40}}};
+    const auto report = mapbox::validatePolygon(polygon);
+    ASSERT_TRUE(report.has(mapbox::PolygonIssue::SelfIntersection));
+    const auto& d = report.diagnostics.front();
+    EXPECT_EQ(d.vertex, 0u);
+    EXPECT_EQ(d.other, 2u);
+}
+
+TEST(EarcutValidate, DetectsCoordinateOverflow) {
+    const ValidatePolygon huge{{{0, 0}, {1e17, 0}, {1e17, 10}, {0, 10}}};
+    EXPECT_TRUE(mapbox::validatePolygon(huge).has(mapbox::PolygonIssue::CoordinateOverflow));
+
+    const ValidatePolygon nan{{{0, 0}, {std::numeric_limits<double>::quiet_NaN(), 0}, {5, 5}}};
+    EXPECT_TRUE(mapbox::validatePolygon(nan).has(mapbox::PolygonIssue::CoordinateOverflow));
+}
+
+TEST(EarcutValidate, BatchSkipsDirtyPolygonsAndContinues) {
+    const ValidatePolygon valid1{{{0, 0}, {100, 0}, {100, 100}, {0, 100}}};
+    const ValidatePolygon dirtyBowtie{{{0, 0}, {40, 40}, {40, 0}, {0, 40}}};
+    const ValidatePolygon valid2{{{0, 0}, {10, 0}, {5, 8}}};
+    const std::vector<ValidatePolygon> batch{valid1, dirtyBowtie, valid2};
+
+    const auto results = mapbox::earcutBatch(batch);
+    ASSERT_EQ(results.size(), 3u);
+
+    // the dirty polygon is diagnosed, not silently dropped or batch-fatal
+    EXPECT_FALSE(results[1].ok());
+    EXPECT_TRUE(results[1].report.has(mapbox::PolygonIssue::SelfIntersection));
+    EXPECT_TRUE(results[1].indices.empty());
+
+    // valid neighbours still triangulate, identical to calling earcut directly
+    ASSERT_TRUE(results[0].ok());
+    ASSERT_TRUE(results[2].ok());
+    EXPECT_EQ(results[0].indices, mapbox::earcut<uint32_t>(valid1));
+    EXPECT_EQ(results[2].indices, mapbox::earcut<uint32_t>(valid2));
+}
+
+// Zero-regression gate: for every fixture the validator accepts, the batch path must produce
+// vertex-for-vertex identical indices to calling earcut directly (earcut itself is untouched).
+TEST(EarcutValidate, BatchOutputIdenticalToDirectEarcut) {
+    for (const auto* fixture : mapbox::fixtures::FixtureTester::collection()) {
+        const auto& polygon = fixture->polygon();
+        const std::vector<mapbox::fixtures::Polygon<mapbox::fixtures::DoublePoint>> batch{polygon};
+        const auto results = mapbox::earcutBatch(batch);
+        ASSERT_EQ(results.size(), 1u);
+        if (!results[0].ok()) continue; // dirty fixtures are diagnosed, not triangulated
+        EXPECT_EQ(results[0].indices, mapbox::earcut<uint32_t>(polygon)) << fixture->name;
+    }
+}

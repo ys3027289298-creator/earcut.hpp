@@ -1,0 +1,21 @@
+# ninja log v5
+1	15	1794566340995279947	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir	5687be1c3731124d
+1	15	1794566340995279947	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir	5687be1c3731124d
+15	1730	1794566342705007278	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download	5ebdee6fe515351f
+15	1730	1794566342705007278	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download	5ebdee6fe515351f
+1730	1751	0	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update	3fd7680ae41476b2
+1730	1751	0	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update	3fd7680ae41476b2
+1751	1768	1794566342747015320	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch	849a14a526efc1c0
+1751	1768	1794566342747015320	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch	849a14a526efc1c0
+1768	1783	1794566342759617733	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure	fca0a09832971f01
+1768	1783	1794566342759617733	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure	fca0a09832971f01
+1783	1796	1794566342772220146	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build	a6f21b3b7561c3ef
+1783	1796	1794566342772220146	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build	a6f21b3b7561c3ef
+1796	1810	1794566342784822559	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install	2bcae14b38ba1a4e
+1796	1810	1794566342784822559	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install	2bcae14b38ba1a4e
+1811	1824	1794566342801625775	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test	6c8aeef646e74c6a
+1811	1824	1794566342801625775	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test	6c8aeef646e74c6a
+1824	1844	1794566342822629795	CMakeFiles/googletest-populate-complete	13495af58d16b09f
+1824	1844	1794566342822629795	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-done	13495af58d16b09f
+1824	1844	1794566342822629795	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete	13495af58d16b09f
+1824	1844	1794566342822629795	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-done	13495af58d16b09f

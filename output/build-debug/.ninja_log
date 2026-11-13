@@ -1,0 +1,11 @@
+# ninja log v5
+1	680	1794566343612380995	CMakeFiles/fixtures.dir/test/fixtures/mvt_fixture.cpp.o	40a0b3e0ea4c5dcd
+2	-697	1794566342240735892	_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o	d867c492e38e60b9
+1	-458	1794566342475980931	CMakeFiles/fixtures.dir/test/fixtures/geometries.cpp.o	9f6c54a8855b8ae
+1	13	1794566342942904354	CMakeFiles/fuzz.dir/test/fuzz.cpp.o	ba87f53f42ff7524
+13	76	1794566343014301735	fuzz	6847c4d1e937343
+2	2013	1794566344937652236	_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o	862745e45886b43e
+2013	2099	1794566345030069928	lib/libgtest.a	e21429778cf18d0f
+2099	2150	1794566345084680384	lib/libgtest_main.a	30ececf4ed42069a
+1	2696	1794566345618182532	CMakeFiles/tests.dir/test/test.cpp.o	b5f30093cb5d3c4c
+2696	2862	1794566345794616308	tests	c28fb72e7273b612

@@ -4,6 +4,7 @@ project(earcut_hpp LANGUAGES CXX C)
 option(EARCUT_BUILD_TESTS "Build the earcut test program" ON)
 option(EARCUT_BUILD_BENCH "Build the earcut benchmark program" ON)
 option(EARCUT_BUILD_VIZ "Build the earcut visualizer program" OFF)
+option(EARCUT_BUILD_FUZZ "Build the earcut fuzz driver" ON)
 option(EARCUT_WARNING_IS_ERROR "Treat warnings as errors" OFF)
 
 include(FetchContent)
@@ -28,7 +29,7 @@ target_include_directories(earcut_hpp INTERFACE
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (EARCUT_BUILD_TESTS OR EARCUT_BUILD_BENCH OR EARCUT_BUILD_VIZ)
+if (EARCUT_BUILD_TESTS OR EARCUT_BUILD_BENCH OR EARCUT_BUILD_VIZ OR EARCUT_BUILD_FUZZ)
 
 # Fixtures and their expectations are read at runtime from the mapbox/earcut JS repo,
 # fetched here and pinned by tag (kept in lockstep with the port — bump on version updates).
@@ -97,7 +98,7 @@ if (EARCUT_WARNING_IS_ERROR)
     )
 endif()
 
-endif() # EARCUT_BUILD_TESTS OR EARCUT_BUILD_BENCH OR EARCUT_BUILD_VIZ
+endif() # EARCUT_BUILD_TESTS OR EARCUT_BUILD_BENCH OR EARCUT_BUILD_VIZ OR EARCUT_BUILD_FUZZ
 
 if (EARCUT_BUILD_TESTS)
     enable_testing()
@@ -122,6 +123,15 @@ if (EARCUT_BUILD_TESTS)
 
     add_test(NAME earcut_tests COMMAND tests)
 endif()
+
+if (EARCUT_BUILD_FUZZ)
+    add_executable(fuzz test/fuzz.cpp)
+    target_link_libraries(fuzz PRIVATE earcut_hpp common)
+    if (EARCUT_BUILD_TESTS)
+        add_test(NAME earcut_fuzz COMMAND fuzz 100000)
+    endif()
+endif()
+
 if (EARCUT_BUILD_BENCH)
     # Google Benchmark setup
     set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)

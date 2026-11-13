@@ -1,0 +1,21 @@
+# ninja log v5
+1	13	1794566336663557214	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-mkdir	a60e7013b986eb41
+1	13	1794566336663557214	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-mkdir	a60e7013b986eb41
+13	1928	1794566338575308626	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-download	3391ab77c1ad1c37
+13	1928	1794566338575308626	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-download	3391ab77c1ad1c37
+1928	1950	0	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-update	7af814731f22885b
+1928	1950	0	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-update	7af814731f22885b
+1950	1964	1794566338608921838	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-patch	a326ab9eae08c69b
+1950	1964	1794566338608921838	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-patch	a326ab9eae08c69b
+1964	1976	1794566338621526792	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-configure	f4b89867852f830c
+1964	1976	1794566338621526792	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-configure	f4b89867852f830c
+1976	1989	1794566338634131747	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-build	f3200ecdb8202f96
+1976	1989	1794566338634131747	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-build	f3200ecdb8202f96
+1989	2003	1794566338650938352	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-install	2fd884eebd6bb09
+1989	2003	1794566338650938352	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-install	2fd884eebd6bb09
+2003	2015	1794566338663543307	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-test	f9d2c97302103b56
+2003	2015	1794566338663543307	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-test	f9d2c97302103b56
+2015	2034	1794566338680349915	CMakeFiles/earcut_js-populate-complete	63afd7d27aa6d60a
+2015	2034	1794566338680349915	earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-done	63afd7d27aa6d60a
+2015	2034	1794566338680349915	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/CMakeFiles/earcut_js-populate-complete	63afd7d27aa6d60a
+2015	2034	1794566338680349915	/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/earcut_js-subbuild/earcut_js-populate-prefix/src/earcut_js-populate-stamp/earcut_js-populate-done	63afd7d27aa6d60a

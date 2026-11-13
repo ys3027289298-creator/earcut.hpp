@@ -1,0 +1,13 @@
+polygon 0: OK -> 8 triangle(s)
+polygon 1: SKIPPED, 1 diagnostic(s):
+  [SelfIntersection] ring 0 self-intersection: edge 0->1 crosses edge 2->3
+polygon 2: SKIPPED, 2 diagnostic(s):
+  [DuplicatePoint] ring 0 vertex 2 duplicates vertex 1 at (50, 0)
+  [SelfIntersection] ring 0 self-intersection: edge 0->1 crosses edge 2->3
+polygon 3: SKIPPED, 1 diagnostic(s):
+  [DegenerateEdge] ring 0 edge 1->2 length 1e-11 below threshold 1.41421e-07
+polygon 4: SKIPPED, 2 diagnostic(s):
+  [CoordinateOverflow] ring 0 vertex 1: coordinate (1e+17, 0) exceeds 2^53 exact-integer limit
+  [CoordinateOverflow] ring 0 vertex 2: coordinate (1e+17, 10) exceeds 2^53 exact-integer limit
+polygon 5: OK -> 1 triangle(s)
+batch done: 2/6 triangulated, 4 diagnosed (batch no longer fails wholesale)

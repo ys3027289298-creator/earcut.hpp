@@ -1,0 +1,14 @@
+... 10000/100000 iterations
+... 20000/100000 iterations
+... 30000/100000 iterations
+... 40000/100000 iterations
+... 50000/100000 iterations
+... 60000/100000 iterations
+... 70000/100000 iterations
+... 80000/100000 iterations
+... 90000/100000 iterations
+... 100000/100000 iterations
+FUZZ OK: 100000 iterations (seed 1), no crash
+  clean polygons triangulated: 46818
+  diagnostics: CoordinateOverflow=19833 DuplicatePoint=9976 DegenerateEdge=10029 SelfIntersection=34220
+  dirty-but-finite polygons also run through earcut directly: 33349

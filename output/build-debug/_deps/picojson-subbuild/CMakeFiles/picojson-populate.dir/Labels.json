@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/CMakeFiles/picojson-populate"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/CMakeFiles/picojson-populate.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/CMakeFiles/picojson-populate-complete.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-build.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-configure.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-download.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-install.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-patch.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-test.rule"
+		},
+		{
+			"file" : "/home/ys/feedback/uidreczz28Z7ClbdazQ/output/build-debug/_deps/picojson-subbuild/picojson-populate-prefix/src/picojson-populate-stamp/picojson-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"picojson-populate"
+		],
+		"name" : "picojson-populate"
+	}
+}
