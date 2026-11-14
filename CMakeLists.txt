@@ -112,7 +112,7 @@ if (EARCUT_BUILD_TESTS)
         GIT_SHALLOW TRUE)
     FetchContent_MakeAvailable(googletest)
 
-    add_executable(tests test/test.cpp $<TARGET_OBJECTS:fixtures>)
+    add_executable(tests test/test.cpp test/simplify_test.cpp $<TARGET_OBJECTS:fixtures>)
     target_link_libraries(tests PRIVATE earcut_hpp common gtest gtest_main)
 
     # Fix floating-point precision issues on different architectures (see issues #97 and #103)
@@ -121,6 +121,14 @@ if (EARCUT_BUILD_TESTS)
     )
 
     add_test(NAME earcut_tests COMMAND tests)
+
+    # Acceptance-data generator for the simplification pipeline (before/after comparison,
+    # bit-exact check at tolerance 0, failure-path demo, resource bounds).
+    add_executable(simplify_report test/simplify_report.cpp $<TARGET_OBJECTS:fixtures>)
+    target_link_libraries(simplify_report PRIVATE earcut_hpp common)
+    target_compile_options(simplify_report PRIVATE
+        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-ffp-contract=off>
+    )
 endif()
 if (EARCUT_BUILD_BENCH)
     # Google Benchmark setup

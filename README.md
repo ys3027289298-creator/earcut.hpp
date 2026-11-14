@@ -68,6 +68,36 @@ mapbox::refine(indices, coords);
 
 It assumes a valid manifold triangulation, such as the output of `earcut` (though any manifold triangle-index array works), and reads `coords` through the same `nth<0>`/`nth<1>` accessors. It doesn't repair invalid polygon input or make the mesh conforming. Note also that `refine` uses **non-robust** predicates: float input is fine, and the worst case is a not-quite-Delaunay edge, never an invalid mesh — but unlike `earcut` it does not promise bit-identical output across compilers.
 
+### Contour simplification (optional preprocessing)
+
+Dense imported contours (hundreds of thousands of vertices) triangulate slowly and produce huge index buffers. `#include <mapbox/simplify.hpp>` adds an opt-in validate → simplify → triangulate pipeline on top of `earcut`:
+
+```cpp
+#include <mapbox/simplify.hpp>
+
+mapbox::SimplifyStats stats;
+// Douglas-Peucker per ring: every removed point ends up within `tolerance`
+// (coordinate units) of the simplified outline. Rings never drop below 3 points.
+std::vector<N> indices = mapbox::earcut<N>(polygon, tolerance, &stats);
+// stats.inputPoints / outputPoints / maxDeviation describe what was removed;
+// stats.usedFallback is set when simplification would have broken topology and
+// the original polygon was triangulated instead.
+```
+
+Or get the simplified polygon directly:
+
+```cpp
+auto simplified = mapbox::simplifyPolygon(polygon, tolerance);
+// simplified.rings, simplified.stats
+```
+
+Guarantees and limits:
+
+- **Degenerate input is rejected** with `mapbox::SimplifyError` (a `std::invalid_argument`): rings with fewer than 3 points, self-intersecting rings, and zero-area rings — at any tolerance, including 0. Plain `earcut()` keeps its historical lenient behavior.
+- **Tolerance 0 is bit-identical**: `earcut<N>(polygon, 0.0)` validates, then forwards to plain `earcut<N>(polygon)` unchanged.
+- **Area stays within a tolerance-derived bound**: the absolute area change per ring is at most `2*tolerance*L + pi*tolerance^2*E` (L = simplified perimeter, E = edge count). Simplification is not topology-preserving by itself, so the simplified polygon is re-validated; if it self-intersects or hole nesting breaks, the pipeline falls back to the original polygon (`stats.usedFallback`) rather than emitting a broken mesh.
+- **Cost**: validation is a min-x segment sweep (near O(E) on typical outlines, O(E²) worst case); simplification is O(E log E) average. Peak extra memory is ~33 bytes per input point; the simplified output never exceeds the input size.
+
 ## Performance
 
 Earcut is heavily optimized for its primary workload — triangulating polygons from
