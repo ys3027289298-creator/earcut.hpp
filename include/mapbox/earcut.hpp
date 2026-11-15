@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
+#include <stdexcept>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -1017,6 +1018,151 @@ std::vector<N> earcut(const Polygon& poly) {
     mapbox::detail::Earcut<N> earcut;
     earcut(poly);
     return std::move(earcut.indices);
+}
+
+// =====================================================================================
+// Pluggable per-vertex attributes (normals, UVs, colors, ...)
+//
+// VertexData is an *external, non-owning side table*: it describes the attribute layout of
+// the caller's vertex buffers but is never referenced by the triangulation core. earcut still
+// reads only x/y through util::nth and still emits only original input indices. The result is
+// that:
+//   * the number and byte size of attributes do NOT participate in any visibility, ear, winding
+//     or geometry decision — the algorithm is attribute-agnostic by construction;
+//   * the 2D index output is bit-identical to mapbox::earcut(poly) for the same polygon, because
+//     the same Earcut<N>::operator() runs over the same coordinates without any new branch or
+//     field on Node;
+//   * attribute storage never enters the ObjectPool<Node>, so growing the attribute count/size
+//     cannot inflate Node or perturb the hot ear-slicing loop.
+//
+// Vertex indices are the same convention as the plain earcut() result: vertices are numbered
+// ring after ring (all vertices of ring 0, then ring 1, ...), so index k addresses vertex k of
+// the concatenated rings. Attribute strides are relative to that same concatenated layout.
+// =====================================================================================
+
+// One attribute slot: a typed view into the caller's buffer. `data` points at attribute slot 0;
+// element a of vertex v lives at data + v*stride + a*elementSize (byte arithmetic). A tight
+// interleaved (AoS) buffer passes stride = count*elementSize; a planar (SoA) buffer passes
+// stride = elementSize. The view never copies or owns the pointed-to memory.
+struct VertexAttribute {
+    const void* data;        // base address of attribute slot 0
+    std::size_t count;       // elements per vertex (e.g. 3 for a normal xyz, 2 for a uv)
+    std::size_t elementSize; // bytes per element
+    std::size_t stride;      // bytes between consecutive vertices for this attribute
+
+    // Byte offset of element `element` for vertex `vertex`.
+    std::size_t byteOffset(std::size_t vertex, std::size_t element) const {
+        return vertex * stride + element * elementSize;
+    }
+};
+
+// A table of arbitrary per-vertex attributes, plus the vertex count that defines the valid index
+// domain. Construct empty (zero attributes) for plain geometry, or push one VertexAttribute per
+// attribute stream. Attributes are retrieved by their slot index in push order.
+class VertexData {
+public:
+    VertexData() = default;
+    explicit VertexData(std::size_t vertexCount_) : vertexCount_(vertexCount_) {}
+
+    std::size_t vertexCount() const noexcept { return vertexCount_; }
+    void setVertexCount(std::size_t count) noexcept { vertexCount_ = count; }
+
+    std::size_t attributeCount() const noexcept { return attributes_.size(); }
+
+    void addAttribute(VertexAttribute attribute) {
+        if (attribute.data == nullptr)
+            throw std::invalid_argument("VertexData::addAttribute: attribute data must not be null");
+        if (attribute.count == 0)
+            throw std::invalid_argument("VertexData::addAttribute: attribute count must be non-zero");
+        if (attribute.elementSize == 0)
+            throw std::invalid_argument("VertexData::addAttribute: element size must be non-zero");
+        if (attribute.stride < attribute.count * attribute.elementSize)
+            throw std::invalid_argument(
+                "VertexData::addAttribute: stride must be at least count * elementSize so every element is addressable");
+        attributes_.push_back(attribute);
+    }
+
+    const VertexAttribute& attribute(std::size_t slot) const {
+        if (slot >= attributes_.size())
+            throw std::out_of_range("VertexData::attribute: attribute slot out of range");
+        return attributes_[slot];
+    }
+
+    const std::vector<VertexAttribute>& attributes() const noexcept { return attributes_; }
+
+    // Address of element `element` of attribute `slot` for `vertex`. Validates every bound and
+    // the element type, so misaligned or undersized buffers fail loudly instead of yielding a
+    // wild pointer. T must match the element type the caller used to fill the buffer.
+    template <typename T>
+    const T* get(std::size_t vertex, std::size_t slot, std::size_t element = 0) const {
+        if (vertex >= vertexCount_)
+            throw std::out_of_range("VertexData::get: vertex index out of range");
+        const VertexAttribute& attr = attribute(slot);
+        if (element >= attr.count)
+            throw std::out_of_range("VertexData::get: attribute element out of range");
+
+        const auto base = reinterpret_cast<std::uintptr_t>(attr.data);
+        const std::size_t offset = attr.byteOffset(vertex, element);
+        const auto address = base + offset;
+
+        // Alignment: the attribute element must be reachable through an aligned T*. Both the
+        // base pointer and the byte offset have to satisfy alignof(T).
+        if (address % alignof(T) != 0)
+            throw std::invalid_argument("VertexData::get: computed address is not correctly aligned for T");
+        return reinterpret_cast<const T*>(address);
+    }
+
+private:
+    std::vector<VertexAttribute> attributes_;
+    std::size_t vertexCount_ = 0;
+};
+
+// Triangulation output paired with the attribute table, so every emitted index can be resolved
+// back to its attributes. Holds the indices by value and the VertexData by const pointer
+// (non-owning): the caller must keep the underlying attribute buffers and the VertexData alive
+// for as long as the result is queried.
+template <typename N = uint32_t>
+class EarcutResult {
+public:
+    EarcutResult() = default;
+    EarcutResult(std::vector<N> indices_, const VertexData* vertexData_, std::size_t vertexCount_)
+        : indices_(std::move(indices_)), vertexData_(vertexData_), vertexCount_(vertexCount_) {}
+
+    const std::vector<N>& indices() const noexcept { return indices_; }
+    std::size_t vertexCount() const noexcept { return vertexCount_; }
+    const VertexData* vertexData() const noexcept { return vertexData_; }
+
+    // Attribute element for the vertex addressed by output index `i` (i.e. indices()[i]).
+    template <typename T>
+    const T* attributeAt(std::size_t i, std::size_t slot, std::size_t element = 0) const {
+        if (!vertexData_)
+            throw std::logic_error("EarcutResult::attributeAt: result carries no VertexData");
+        if (i >= indices_.size())
+            throw std::out_of_range("EarcutResult::attributeAt: output index out of range");
+        return vertexData_->template get<T>(static_cast<std::size_t>(indices_[i]), slot, element);
+    }
+
+private:
+    std::vector<N> indices_;
+    const VertexData* vertexData_ = nullptr;
+    std::size_t vertexCount_ = 0;
+};
+
+// Triangulate `poly` while retaining an attribute table. The triangulation itself is the plain
+// 2D algorithm; `vertices` only validates the index domain and is later used to resolve
+// attributes. Throws std::invalid_argument when the table's vertex count does not cover the
+// polygon (which would make a returned index unresolvable).
+template <typename N = uint32_t, typename Polygon>
+EarcutResult<N> earcut(const Polygon& poly, const VertexData& vertices) {
+    std::size_t polygonVertices = 0;
+    for (const auto& ring : poly) polygonVertices += static_cast<std::size_t>(ring.size());
+    if (vertices.vertexCount() < polygonVertices)
+        throw std::invalid_argument(
+            "earcut: VertexData vertex count is smaller than the polygon's total vertex count");
+
+    mapbox::detail::Earcut<N> ecut;
+    ecut(poly);
+    return EarcutResult<N>(std::move(ecut.indices), &vertices, ecut.vertices);
 }
 
 namespace detail {
